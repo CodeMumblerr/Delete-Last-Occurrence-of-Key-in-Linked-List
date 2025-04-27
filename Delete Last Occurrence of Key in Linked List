@@ -1,0 +1,52 @@
+# Python program to remove the last occurrence of a given key from a singly linked list
+
+class ListNode:
+    def __init__(self, value):
+        self.data = value
+        self.next = None
+
+# Function to remove the last occurrence of a specific key
+def remove_last_key(start, target):
+    last_found = None
+    before_last = None
+    current = start
+    previous = None
+
+    # Traverse the list to find the last occurrence of the target
+    while current:
+        if current.data == target:
+            before_last = previous
+            last_found = current
+        previous = current
+        current = current.next
+
+    # If the key was found, remove it
+    if last_found:
+        if before_last:
+            before_last.next = last_found.next
+        else:
+            # If the key was at the head
+            start = start.next
+
+    return start
+
+# Function to print the linked list
+def display_linked_list(node):
+    while node:
+        print(node.data, end=" -> ")
+        node = node.next
+    print("None")
+
+if __name__ == "__main__":
+  
+    # Example: 5 -> 10 -> 15 -> 10 -> 20
+    head = ListNode(5)
+    head.next = ListNode(10)
+    head.next.next = ListNode(15)
+    head.next.next.next = ListNode(10)
+    head.next.next.next.next = ListNode(20)
+
+    key_to_delete = 10
+    head = remove_last_key(head, key_to_delete)
+
+    display_linked_list(head)
